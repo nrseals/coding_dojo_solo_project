@@ -1,0 +1,13 @@
+An event-planning/booking app called "Gigspace" built with Python and Flask. Intended for freelance performers and venue promoters. Users will be able to Create and View event details, as well as RSVP to events. Users will be able to interact on the event details page using a message wall. The creators of an event will be able to edit or delete the event. Users may also access a page that shows all the events they have RSVP'd to.
+
+Need to have features:
+>Login & Registration with Validations
+>CRUD functionality for Events
+>Users may RSVP to events (Many to Many)
+>Protected Routes (Users must be logged in/stored in session to view pages past Login/Reg)
+>Event Details page will have a message wall where users can interact 
+
+Nice to have features:
+
+>Seperate User types of Performers and Promoters. Performers can "Book"(RSVP) to events and view all events/event details. Promoters can create, edit, and delete events. 
+>Incorperation of Google Maps for displaying location/venue 

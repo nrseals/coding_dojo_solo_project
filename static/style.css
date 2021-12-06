@@ -1,0 +1,6 @@
+body{
+    text-align: center;
+}
+#login, #register, #main_nav{
+    display: inline-block;
+}

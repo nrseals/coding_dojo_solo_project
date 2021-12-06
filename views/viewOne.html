@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Gigspace</title>
+</head>
+<body>
+    <div id="main_nav">
+        <nav>
+            <a href="#">Home</a>
+            |
+            <a href="#">My Events</a>
+            |
+            <a href="#">Create Event</a>
+            |
+            <a href="#">Logout</a>
+        </nav>
+    </div>
+    <h1>Details about {event.name} </h1>
+    <div id="event_details">
+        <p>Location: {event.location}</p>
+        <p>Created by: {event.creator}</p>
+        <button href="#">RSVP</button>
+    </div>
+    <div id="event_wall">
+        <h3>Event wall:</h3>
+        <!-- Consider best way to a wall here. Definitely form for input. For loop?/<p> -->
+        <p>{user.name}: {user.message} </p>
+        <form action="#" method="post">
+            <label for="message">Message</label>
+            <input type="text">
+            <input type="submit" value="Post!">
+        </form>
+    </div>
+</body>
+</html>

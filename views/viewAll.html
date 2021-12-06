@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Gigspace</title>
+</head>
+<body>
+    <div id="main_nav">
+        <nav>
+            <a href="#">Home</a>
+            |
+            <a href="#">My Events</a>
+            |
+            <a href="#">Create Event</a>
+            |
+            <a href="#">Logout</a>
+        </nav>
+    </div>
+    <div id="events_table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Location</th>
+                    <th>Created By</th>
+                    <th>Date/Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- Use for loop to iterate through ALL event objects and format them to table -->
+            <tr>
+                <td>This is an example </td>
+                <td>Someplace </td>
+                <td>Me! </td>
+                <td>12/32/21 2am </td>
+                <td>
+                    <button href="#">RSVP</button>
+                    |
+                    <button href="#">Edit</button>
+                    | 
+                    <button href="#">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

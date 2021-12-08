@@ -31,12 +31,12 @@
                 </tr>
             </thead>
             <tbody>
-            <!-- Use for loop to iterate through ALL event objects and format them to table -->
+            {% for gig in gigs %}
             <tr>
-                <td>This is an example </td>
-                <td>Someplace </td>
-                <td>Me! </td>
-                <td>12/32/21 2am </td>
+                <td>{{gig['name']}}</td>
+                <td>{{gig['location']}}</td>
+                <td>{{gig['date']}}</td>
+                <td>{{gig['description']}}</td>
                 <td>
                     <button href="#">RSVP</button>
                     |
@@ -45,6 +45,7 @@
                     <button href="#">Delete</button>
                 </td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

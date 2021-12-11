@@ -1,6 +1,15 @@
 body{
     text-align: center;
 }
-#login, #register, #main_nav{
-    display: inline-block;
+#login, #register {
+    flex: 1;
+}
+#wrapper{
+    display:flex;
+    padding-left: 250px;
+    padding-right: 250px;
+    justify-content: space-evenly;
+}
+input{
+    margin: 5px;
 }

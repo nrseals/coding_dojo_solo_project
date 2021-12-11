@@ -10,42 +10,43 @@
 <body>
     <div id="main_nav">
         <nav>
-            <a href="#">Home</a>
+            <a href="/gigs">Home</a>
             |
-            <a href="#">My Events</a>
+            <a href="/users/{{user['id']}}">My Events</a>
             |
-            <a href="#">Create Event</a>
+            <a href="/gigs/new">Create Event</a>
             |
-            <a href="#">Logout</a>
+            <a href="/logout">Logout</a>
         </nav>
     </div>
-    <h1>Events for {user.name}!</h1>
-    <div id="user_table">
-        <table>
+    <h1>Events for {{user['name']}}!</h1>
+    <div id="wrapper">
+        <table id="table">
             <thead>
                 <tr>
                     <th>Event Name</th>
                     <th>Location</th>
-                    <th>Created By</th>
-                    <th>Date/Time</th>
+                    <th>Date</th>
+                    <th>Description</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Use for loop to iterate through user's event objects and format them to table -->
+                {% for gig in gigs %}
                 <tr>
-                    <td>This is an example</td>
-                    <td>Someplace</td>
-                    <td>Me!</td>
-                    <td>12/32/21 2am</td>
+                    <td>{{gig['name']}}</td>
+                    <td>{{gig['location']}}</td>
+                    <td>{{gig['date']}}</td>
+                    <td>{{gig['description']}}</td>
                     <td>
-                        <button href="#">RSVP</button>
+                        <a href="#">RSVP</a>
                         |
-                        <button href="#">Edit</button>
+                        <a href="/gigs/{{gig['id']}}/edit">Edit</a>
                         | 
-                        <button href="#">Delete</button>
+                        <a href="/gigs/{gig['id]}}/delete">Delete</a>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
         </table>

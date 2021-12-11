@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Gigspace</title>
+</head>
+
+<body>
+    <div id="main_nav">
+        <nav>
+            <a href="/gigs">Home</a>
+            |
+            <a href="/users/{{session['user_id']}}">My Events</a>
+            |
+            <a href="/gigs/new">Create Event</a>
+            |
+            <a href="/logout">Logout</a>
+        </nav>
+    </div>
+
+        <h1>Edit {{gig['name']}}!</h1>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class="error">{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div id="wrapper">
+            <form action="/gigs/create" method="post">
+                <label for="name" >Gig Name: </label>
+                <input type="text" name="name" value="{{gig['name']}}">
+                <br>
+                <label for="location" name="location">Gig Location: </label>
+                <input type="text" name="location" value="{{gig['location']}}">
+                <br>
+                <label for="date" name="date">Gig Date: </label>
+                <input type="date" name="date" value="{{gig['date']}}">
+                <br>
+                <label for="description" >Gig Description: </label>
+                <input type="textarea" name="description" value="{{gig['description']}}">
+                <br>
+                <input type="submit" value="Update gig!">
+            </form>
+          </div>
+</body>
+
+</html>

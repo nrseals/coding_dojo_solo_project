@@ -10,22 +10,22 @@
 <body>
     <div id="main_nav">
         <nav>
-            <a href="#">Home</a>
+            <a href="/gigs">Home</a>
             |
-            <a href="#">My Events</a>
+            <a href="/users/{{user['id']}}">My Events</a>
             |
-            <a href="#">Create Event</a>
+            <a href="/gigs/new">Create Event</a>
             |
-            <a href="#">Logout</a>
+            <a href="/logout">Logout</a>
         </nav>
     </div>
-    <div id="events_table">
+    <h1>All gigs!</h1>
+    <div id="wrapper">
         <table>
             <thead>
                 <tr>
                     <th>Event Name</th>
                     <th>Location</th>
-                    <th>Created By</th>
                     <th>Date/Time</th>
                     <th>Actions</th>
                 </tr>
@@ -33,16 +33,15 @@
             <tbody>
             {% for gig in gigs %}
             <tr>
-                <td>{{gig['name']}}</td>
+                <td><a href="/gigs/{{gig['id']}}">{{gig['name']}}</a></td>
                 <td>{{gig['location']}}</td>
                 <td>{{gig['date']}}</td>
-                <td>{{gig['description']}}</td>
                 <td>
-                    <button href="#">RSVP</button>
+                    <a href="#">RSVP</a>
                     |
-                    <button href="#">Edit</button>
+                    <a href="/gigs/{{gig['id']}}/edit">Edit</a>
                     | 
-                    <button href="#">Delete</button>
+                    <a href="/gigs/{{gig['id']}}/delete">Delete</a>
                 </td>
             </tr>
             {% endfor %}

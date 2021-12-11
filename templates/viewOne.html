@@ -10,19 +10,19 @@
 <body>
     <div id="main_nav">
         <nav>
-            <a href="#">Home</a>
+            <a href="/gigs">Home</a>
             |
-            <a href="#">My Events</a>
+            <a href="/users/{{user['id']}}">My Events</a>
             |
-            <a href="#">Create Event</a>
+            <a href="/gigs/new">Create Event</a>
             |
-            <a href="#">Logout</a>
+            <a href="/logout">Logout</a>
         </nav>
     </div>
-    <h1>Details about {event.name} </h1>
+    <h1>Details about {{gig['name']}} </h1>
     <div id="event_details">
-        <p>Location: {event.location}</p>
-        <p>Created by: {event.creator}</p>
+        <p>Location: {{gig['location']}}</p>
+        <p>Event Date: {{gig['date']}}</p>
         <button href="#">RSVP</button>
     </div>
     <div id="event_wall">

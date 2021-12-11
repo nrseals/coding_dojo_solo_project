@@ -9,27 +9,49 @@
 </head>
 <body>
     <h1>Welcome to Gigspace</h1>
-    <div id="login">
-        <h2>Login</h2>
-        <form action="/users/login" method="post">
-            <label for="email">Email: </label>
-            <input type="text">
-            <input type="submit" value="Login!">
-        </form>
-    </div>
-    <div id="register">
-        <h2>Register</h2>
-        <form action="/users/register" method="post" id="reg_form">
-            <label for="name">Name: </label>
-            <input type="text">
-            <label for="email">Email: </label>
-            <input type="email">
-            <label for="password">Password: </label>
-            <input type="password">
-            <label for="confirmPw">Confirm Password: </label>
-            <input type="password">
-            <input type="submit" value="Register!">
-        </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    <div id=wrapper>
+        <h1>All gigs!</h1>
+        <div id="login">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <label for="email">Email: </label>
+                <input type="email" name="email">
+                <br>
+                <label for="pw">Password: </label>
+                <input type="password" name="password">
+                <br>
+                <br>
+                <input type="submit" value="Login!">
+            </form>
+        </div>
+        <div id="register">
+            <h2>Register</h2>
+            <form action="/users/create" method="post" id="reg_form">
+                <label for="name">Name: </label>
+                <input type="text" name="name">
+                <br>
+                <label for="email">Email: </label>
+                <input type="email" name="email">
+                <br>
+                <label for="password">Password: </label>
+                <input type="password" name="pw">
+                <br>
+                <label for="confirmPw">Confirm Password: </label>
+                <input type="password" name="confirm_pw">
+                <br>
+                <br>
+                <input type="submit" value="Register!">
+            </form>
+        </div>
     </div>
 </body>
 </html>

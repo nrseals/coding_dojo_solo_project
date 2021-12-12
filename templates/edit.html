@@ -31,7 +31,7 @@
         {% endif %}
         {% endwith %}
         <div id="wrapper">
-            <form action="/gigs/create" method="post">
+            <form action="/gigs/{{gig['id']}}/update" method="post">
                 <label for="name" >Gig Name: </label>
                 <input type="text" name="name" value="{{gig['name']}}">
                 <br>
@@ -46,7 +46,7 @@
                 <br>
                 <input type="submit" value="Update gig!">
             </form>
-          </div>
+        </div>
 </body>
 
 </html>

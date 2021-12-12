@@ -122,9 +122,33 @@ def allGigs():
     else:
         mysql = connectToMySQL('solo_project')
         gigs = mysql.query_db('SELECT * FROM gigs')
+
         mysql = connectToMySQL(('solo_project'))
         user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
+        
         return render_template('viewAll.html', gigs = gigs, user = user[0])
+
+@app.route("/gigs/<id>/rsvp")
+def rsvp(id):
+    mysql = connectToMySQL(SCHEMA)
+    query = "INSERT INTO rsvp (users_id, gigs_id) VALUES (%(user_id)s, %(gigs_id)s)"
+    data = {
+        'user_id': session['user_id'],
+        'gigs_id': id
+    }
+    mysql.query_db(query, data)
+    return redirect("/gigs")
+
+@app.route("/gigs/<id>/un_rsvp")
+def un_rsvp(id):
+    mysql = connectToMySQL(SCHEMA)
+    query = "DELETE FROM rsvp WHERE users_id = %(user_id)s AND gigs_id = %(gig_id)s"
+    data = {
+        'user_id': session['user_id'],
+        'gig_id': id
+    }
+    mysql.query_db(query, data)
+    return redirect("/gigs")
 
 @app.route("/users/<id>")
 def userGigs(id):
@@ -133,7 +157,8 @@ def userGigs(id):
     mysql = connectToMySQL('solo_project')
     user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
     mysql = connectToMySQL('solo_project')
-    gigs = mysql.query_db('SELECT * FROM gigs')
+    gigs = mysql.query_db('SELECT * FROM rsvp JOIN gigs ON rsvp.gigs_id = gigs.id WHERE users_id = {}'.format(id))
+    print(gigs)
     return render_template('userEvents.html', user = user[0], gigs = gigs)
 
 @app.route("/gigs/<id>")
@@ -142,7 +167,10 @@ def viewOne(id):
     gig = mysql.query_db('SELECT * FROM gigs WHERE id = {}'.format(id))
     mysql = connectToMySQL('solo_project')
     user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
-    return render_template('viewOne.html', gig = gig[0], user = user[0])
+    mysql = connectToMySQL(SCHEMA)
+    attendees = mysql.query_db('SELECT users.name from rsvp JOIN users ON rsvp.users_id = users.id WHERE gigs_id = {}'.format(id))
+    print(attendees)
+    return render_template('viewOne.html', gig = gig[0], user = user[0], attendees = attendees)
 
 @app.route("/gigs/new")
 def newGig():
@@ -170,12 +198,13 @@ def createGig():
         return redirect("/gigs/new")
 
     mysql = connectToMySQL(SCHEMA)
-    query = 'INSERT INTO gigs (name, location, date, description) VALUES (%(name)s, %(location)s, %(date)s, %(description)s)'
+    query = 'INSERT INTO gigs (name, location, date, description, creator_id) VALUES (%(name)s, %(location)s, %(date)s, %(description)s, %(id)s)'
     data = {
         "name": request.form['name'],
         "location": request.form['location'],
         "date": request.form['date'],
-        "description": request.form['description']
+        "description": request.form['description'],
+        "id": session['user_id']
     }
     gig = mysql.query_db(query, data)
     return redirect("/gigs")
@@ -193,5 +222,36 @@ def editGig(id):
     mysql = connectToMySQL(SCHEMA)
     user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
     return render_template("edit.html", gig = gig[0], user=user[0])
+
+@app.route("/gigs/<id>/update", methods = ['POST'])
+def update(id):
+    valid = True
+
+    if len(request.form['name']) < 2:
+        flash("Gig name must be at least 2 characters")
+        valid = False
+
+    if len(request.form['location']) < 2:
+        flash("Gig location must be at least 2 characters")
+        valid = False
+
+    if len(request.form['date']) < 2:
+        flash("A date is required")
+        valid = False
+
+    if not valid:
+        return redirect("/gigs/<id>/edit")
+
+    mysql = connectToMySQL(SCHEMA)
+    query = 'UPDATE gigs SET name = %(name)s, location = %(location)s , date = %(date)s, description = %(description)s, creator_id , %(id)s) WHERE id = {}'.format(id)
+    data = {
+        "name": request.form['name'],
+        "location": request.form['location'],
+        "date": request.form['date'],
+        "description": request.form['description'],
+        "id": session['user_id']
+    }
+    gig = mysql.query_db(query, data)
+    return redirect("/gigs")
 if __name__ == "__main__":
     app.run(debug=True)

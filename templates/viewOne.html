@@ -23,17 +23,17 @@
     <div id="event_details">
         <p>Location: {{gig['location']}}</p>
         <p>Event Date: {{gig['date']}}</p>
-        <button href="#">RSVP</button>
+        <a href="/gigs/{{gig['id']}}/rsvp">RSVP</a>
+        |
+        <a href="/gigs/{{gig['id']}}/un_rsvp">Un-RSVP</a>
+        |
+        <a href="/gigs/{{gig['id']}}/edit">Edit</a>
+        | 
+        <a href="/gigs/{{gig['id']}}/delete">Delete</a>
     </div>
-    <div id="event_wall">
-        <h3>Event wall:</h3>
-        <!-- Consider best way to a wall here. Definitely form for input. For loop?/<p> -->
-        <p>{user.name}: {user.message} </p>
-        <form action="#" method="post">
-            <label for="message">Message</label>
-            <input type="text">
-            <input type="submit" value="Post!">
-        </form>
-    </div>
+    <h3>Attendees</h3>
+    {% for user in attendees %}
+        <p>{{user.name}}</p>
+    {% endfor %}
 </body>
 </html>

@@ -27,24 +27,14 @@
                     <th>Event Name</th>
                     <th>Location</th>
                     <th>Date</th>
-                    <th>Description</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for gig in gigs %}
                 <tr>
-                    <td>{{gig['name']}}</td>
+                    <td><a href="/gigs/{{gig['id']}}">{{gig['name']}}</a></td>
                     <td>{{gig['location']}}</td>
                     <td>{{gig['date']}}</td>
-                    <td>{{gig['description']}}</td>
-                    <td>
-                        <a href="#">RSVP</a>
-                        |
-                        <a href="/gigs/{{gig['id']}}/edit">Edit</a>
-                        | 
-                        <a href="/gigs/{gig['id]}}/delete">Delete</a>
-                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>

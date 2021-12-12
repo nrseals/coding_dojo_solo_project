@@ -19,15 +19,15 @@
             <a href="/logout">Logout</a>
         </nav>
     </div>
-    <h1>All gigs!</h1>
+    <h1>Welcome {{user.name}}</h1>
+    <h3>All gigs!</h3>
     <div id="wrapper">
         <table>
             <thead>
                 <tr>
                     <th>Event Name</th>
                     <th>Location</th>
-                    <th>Date/Time</th>
-                    <th>Actions</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,13 +36,6 @@
                 <td><a href="/gigs/{{gig['id']}}">{{gig['name']}}</a></td>
                 <td>{{gig['location']}}</td>
                 <td>{{gig['date']}}</td>
-                <td>
-                    <a href="#">RSVP</a>
-                    |
-                    <a href="/gigs/{{gig['id']}}/edit">Edit</a>
-                    | 
-                    <a href="/gigs/{{gig['id']}}/delete">Delete</a>
-                </td>
             </tr>
             {% endfor %}
             </tbody>

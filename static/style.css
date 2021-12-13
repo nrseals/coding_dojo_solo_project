@@ -14,7 +14,7 @@
 input{
     margin: 5px;
 }
-#new{
+#new, #errors{
     padding-left: 250px;
     padding-right: 250px;
 }

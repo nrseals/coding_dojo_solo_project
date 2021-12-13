@@ -22,15 +22,16 @@
             <a href="/logout">Logout</a>
         </nav>
     </div>
-
         <h1>Edit {{gig['name']}}!</h1>
+        <div id="errors">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         {% for message in messages %}
-        <p class="error">{{ message }}</p>
+        <p class="alert alert-warning">{{ message }}</p>
         {% endfor %}
         {% endif %}
         {% endwith %}
+    </div>
         <div id="wrapper">
             <form action="/gigs/{{gig['id']}}/update" method="post">
                 <label for="name" >Gig Name: </label>

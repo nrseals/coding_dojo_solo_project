@@ -17,7 +17,9 @@ def index():
 
 @app.route('/users/create', methods=['POST'])
 def users_new():
-    valid = True
+    valid = True #assumes input is valid 
+
+    #validations
 
     if len(request.form['name']) < 2:
         flash("User name must be at least 2 characters")
@@ -39,6 +41,7 @@ def users_new():
         flash("Passwords must match")
         valid = False
 
+    #query db for duplicate email
     db = connectToMySQL(SCHEMA)
     validate_email_query = 'SELECT id FROM users WHERE email=%(email)s;'
     form_data = {
@@ -56,16 +59,22 @@ def users_new():
     
     # hash user's password
     pw_hash = bcrypt.generate_password_hash(request.form['pw'])
+
     # create a user and log them in
     db = connectToMySQL(SCHEMA)
-    create_query = "INSERT INTO users (name, email, password) VALUES (%(name)s, %(mail)s, %(pw)s);"
-    create_data = {
+    query = "INSERT INTO users (name, email, password) VALUES (%(name)s, %(mail)s, %(pw)s);"
+    data = {
         'name': request.form['name'],
         'mail': request.form['email'],
         'pw': pw_hash
     }
-    user_id = db.query_db(create_query, create_data)
+    user_id = db.query_db(query, data)
+
+    #add user_id to session 
     session['user_id'] = user_id
+    print("*"*50)
+    print(f"User id: {session['user_id']} added to session!")
+    print("Redirecting to /gigs . . .")
     return redirect('/gigs')
 
 @app.route("/login", methods=["POST"])

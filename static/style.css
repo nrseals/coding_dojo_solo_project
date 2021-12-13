@@ -14,7 +14,10 @@
 input{
     margin: 5px;
 }
-#new, #errors{
+#new, #errors, #edit{
     padding-left: 250px;
     padding-right: 250px;
+}
+#main_nav{
+    margin-top: 10px;
 }

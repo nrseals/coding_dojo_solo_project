@@ -152,7 +152,7 @@ def un_rsvp(id):
         'gig_id': id
     }
     mysql.query_db(query, data)
-    return redirect(f"/gigs/{id}")
+    return redirect(f"/users/{session['user_id']}")
 
 @app.route("/users/<id>")
 def userGigs(id):
@@ -228,7 +228,7 @@ def createGig():
 @app.route("/gigs/<id>/delete")
 def deleteGig(id):
     mysql = connectToMySQL(SCHEMA)
-    gig = mysql.query_db('DELETE FROM gigs WHERE id = {}'.format(id))
+    gig = mysql.query_db('DELETE FROM gigs WHERE id = {} '.format(id))
     return redirect('/gigs')
 
 @app.route("/gigs/<id>/edit")

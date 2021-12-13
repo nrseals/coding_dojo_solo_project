@@ -28,6 +28,7 @@
                     <th>Event Name</th>
                     <th>Location</th>
                     <th>Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,9 @@
                     <td><a href="/gigs/{{gig['id']}}">{{gig['name']}}</a></td>
                     <td>{{gig['location']}}</td>
                     <td>{{gig['date']}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-primary" href="/gigs/{{gig['id']}}/un_rsvp">Un-RSVP</a>
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>

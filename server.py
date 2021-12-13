@@ -263,13 +263,12 @@ def update(id):
         return redirect("/gigs/<id>/edit")
 
     mysql = connectToMySQL(SCHEMA)
-    query = 'UPDATE gigs SET name = %(name)s, location = %(location)s , date = %(date)s, description = %(description)s, creator_id , %(id)s) WHERE id = {}'.format(id)
+    query = 'UPDATE gigs SET name = %(name)s, location = %(location)s , date = %(date)s, description = %(description)s WHERE id = {}'.format(id)
     data = {
         "name": request.form['name'],
         "location": request.form['location'],
         "date": request.form['date'],
         "description": request.form['description'],
-        "id": session['user_id']
     }
     gig = mysql.query_db(query, data)
     return redirect("/gigs")

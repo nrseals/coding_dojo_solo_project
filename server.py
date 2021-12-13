@@ -20,7 +20,7 @@ def users_new():
     valid = True
 
     if len(request.form['name']) < 2:
-        flash("Last name must be at least 2 characters")
+        flash("User name must be at least 2 characters")
         valid = False
 
     if not EMAIL_REGEX.match(request.form['email']):
@@ -121,7 +121,7 @@ def allGigs():
         return redirect('/')
     else:
         mysql = connectToMySQL('solo_project')
-        gigs = mysql.query_db('SELECT * FROM gigs')
+        gigs = mysql.query_db('SELECT * FROM gigs ORDER BY date ASC')
 
         mysql = connectToMySQL(('solo_project'))
         user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
@@ -137,7 +137,7 @@ def rsvp(id):
         'gigs_id': id
     }
     mysql.query_db(query, data)
-    return redirect("/gigs")
+    return redirect(f"/gigs/{id}")
 
 @app.route("/gigs/<id>/un_rsvp")
 def un_rsvp(id):
@@ -148,7 +148,7 @@ def un_rsvp(id):
         'gig_id': id
     }
     mysql.query_db(query, data)
-    return redirect("/gigs")
+    return redirect(f"/gigs/{id}")
 
 @app.route("/users/<id>")
 def userGigs(id):
@@ -157,7 +157,7 @@ def userGigs(id):
     mysql = connectToMySQL('solo_project')
     user = mysql.query_db('SELECT * FROM users WHERE id = {}'.format(session['user_id']))
     mysql = connectToMySQL('solo_project')
-    gigs = mysql.query_db('SELECT * FROM rsvp JOIN gigs ON rsvp.gigs_id = gigs.id WHERE users_id = {}'.format(id))
+    gigs = mysql.query_db('SELECT * FROM rsvp JOIN gigs ON rsvp.gigs_id = gigs.id WHERE users_id = {} ORDER BY gigs.date ASC'.format(id))
     print(gigs)
     return render_template('userEvents.html', user = user[0], gigs = gigs)
 
